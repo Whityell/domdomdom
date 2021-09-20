@@ -9,50 +9,60 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.appendChild(btn);
     document.body.appendChild(containerDiv);
 
+
     let id = '0';
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
         console.log('here');
         let div = document.createElement('div');
         containerDiv.appendChild(div);
         div.style.backgroundColor = "black";
-        div.style.width = '200px';
-        div.style.height = '200px';
+        div.style.width = '100px';
+        div.style.height = '100px';
         div.style.alignItems = 'left'
+        div.style.margin = '2em'
         div.className = 'boxDivs';
         div.setAttribute('id', id);
         id++;
 
-        div.addEventListener('mouseover' , function () {
+
+
+        div.addEventListener('mouseover', function () {
             console.log(this.id);
             let divText = document.createTextNode(this.id);
             div.appendChild(divText);
         })
 
-        div.addEventListener('mouseout', function (){
+        function getRandomColor (){
+            let letters = '012345678ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        div.addEventListener('click', function () {
             let randomColor = getRandomColor();
             div.style.backgroundColor = randomColor;
         })
 
         div.addEventListener('dblclick', remove);
 
-
-    });
-
-    let color = ['red', 'blue', 'green', 'yellow', 'purple', 'pink', 'white', 'black' ];
-    
-    function remove() {
-        if (this.id%2 === 0) {
-            if (this.nextsibling) {
-                this.nextsibling.remove();
-            }else{
-                if (this.previousSibling){
-                    this.previousSibling.remove();
-                }else {
-                    alert('The next sibling does not exist');
+        function remove() {
+            if (this.id % 2 == 0) {
+                if (this.nextsibling) {
+                    this.nextsibling.remove();
+                } else {
+                    if (this.previousSibling) {
+                        this.previousSibling.remove();
+                    } else {
+                        alert('The next sibling does not exist');
+                    }
                 }
             }
         }
-    }
+
+    });
 
     
 
@@ -63,4 +73,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-}); 
+
+
+});
